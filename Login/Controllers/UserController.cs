@@ -8,10 +8,27 @@ namespace Login.Controllers
 {
     public class UserController : Controller
     {
-        // GET: User
-        public ActionResult Index()
+        //Registration Action
+        [HttpGet]
+        public ActionResult Registration()
         {
             return View();
         }
+
+        //Registration POST Action
+
+        //Verify Email
+
+
+        //Verify Email Link
+
+
+        //Login
+
+
+        //Login POST
+
+
+        //LOgout
     }
 }
