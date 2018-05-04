@@ -74,8 +74,32 @@ namespace Login.Controllers
         }
 
 
-        //Verify Email
+        //Verify Account
+        [HttpGet]
+        public ActionResult VerifyAccount(string id)
+        {
+            bool Status = false;
 
+            using (UserDBEntities db = new UserDBEntities())
+            {
+                db.Configuration.ValidateOnSaveEnabled = false;
+
+                var v = db.Users.Where(a => a.ActivationCode == new Guid(id)).FirstOrDefault();
+                if (v!= null)
+                {
+                    v.IsEmailVerified = true;
+                    db.SaveChanges();
+                    Status = true;
+                }
+                else
+                {
+                    ViewBag.Message = "Invalied Request";
+                }
+
+            }
+            ViewBag.Status = true;
+            return View();
+        }
 
         //Verify Email Link
 
