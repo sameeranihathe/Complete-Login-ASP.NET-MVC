@@ -6,8 +6,10 @@ using System.Web;
 
 namespace Login.Models
 {
+    [MetadataType(typeof(UserMetaData))]
     public partial class User
     {
+        public string ConfirmPassword { get; set; }
     }
     public class UserMetaData
     {
@@ -29,7 +31,17 @@ namespace Login.Models
         [DisplayFormat(ApplyFormatInEditMode =true, DataFormatString ="{0:MM-dd-yyyy}")]
         public DateTime DateOfBirth { get; set; }
 
-
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Password is required")]
+        [DataType(DataType.Password)]
+        [MinLength(6, ErrorMessage ="Password must be minimum of 6 characters")]
         public string Password { get; set; }
+
+        [Display(Name ="Confirm Password")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Password is required")]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage ="Passwoords do not match")]
+        public string ConfirmPassword { get; set; }
+
+
     }
 }
