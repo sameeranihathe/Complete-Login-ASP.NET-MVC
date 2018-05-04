@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Login.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,13 @@ namespace Login.Controllers
         }
 
         //Registration POST Action
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Registration([Bind(Exclude = "IsEmailVerified, ActivationCode")] User user)
+        {
+            return View(user);
+        }
+
 
         //Verify Email
 
