@@ -104,7 +104,7 @@ namespace Login.Controllers
             var verifyUrl = "/User/VerifyAccount/" + activationCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
-            var fromEmail = new MailAddress("sameeranihathe@gail.com", "sameera sampath");
+            var fromEmail = new MailAddress("sameeranihathe@gmail.com", "sameera sampath");
             var toEmail = new MailAddress(emailID);
             var fromemailPassword = "kanchana143";
             string subject = "Your account is successfully created";
