@@ -36,6 +36,7 @@ namespace Login.Controllers
                     ModelState.AddModelError("EmailExist", "Email already exists");
                     return View(user);
                 }
+                #endregion
 
                 #region generate activation code
                 user.ActivationCode = Guid.NewGuid();
@@ -46,27 +47,27 @@ namespace Login.Controllers
                 user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
                 #endregion
                 user.IsEmailVerified = false;
+
+                #region save to database
+                using (UserDBEntities db = new UserDBEntities())
+                {
+                    db.Users.Add(user);
+                    db.SaveChanges();
+
+                    //send details to user via email
+                    sendverificationEmail(user.EmailID, user.ActivationCode.ToString());
+                    message = "Registration successfully completed. Check your email to verify the account.";
+                    Status = true;
+                }
+                #endregion
             }
             else
             {
                 message = "Invalied request";
             }
 
-            #region save to database
-            using (UserDBEntities db = new UserDBEntities())
-            {
-                db.Users.Add(user);
-                db.SaveChanges();
-
-                //send details to user via email
-                sendverificationEmail(user.EmailID, user.ActivationCode.ToString());
-            }
-            #endregion
-
-
-            //save data to database
-
-            //send email to user
+            ViewBag.Message = message;
+            ViewBag.Status = Status;
 
 
             return View(user);
@@ -127,8 +128,9 @@ namespace Login.Controllers
                 Body = body,
                 IsBodyHtml = true
             })
+            {
                 smtp.Send(message);
-            
+            }
         }
 
 

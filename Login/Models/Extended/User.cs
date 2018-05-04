@@ -27,7 +27,7 @@ namespace Login.Models
         public string EmailID { get; set; }
 
         [Display(Name = "Date of Birth")]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode =true, DataFormatString ="{0:MM-dd-yyyy}")]
         public DateTime DateOfBirth { get; set; }
 
