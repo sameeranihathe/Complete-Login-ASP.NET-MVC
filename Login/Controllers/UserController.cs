@@ -135,7 +135,7 @@ namespace Login.Controllers
 
                         if (Url.IsLocalUrl(ReturnUrl))
                         {
-                            return Redirect(ReturnUrl)
+                            return Redirect(ReturnUrl);
                         }
                         else
                         {
@@ -155,7 +155,14 @@ namespace Login.Controllers
             ViewBag.Message = message;
             return View();
         }
-        //LOgout
+        //Logout
+        [HttpPost]
+        [Authorize]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "User");
+        }
 
         [NonAction]
         public bool IsEmailExsist(string emailID)
