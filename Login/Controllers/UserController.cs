@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Login.Controllers
 {
@@ -105,11 +106,55 @@ namespace Login.Controllers
 
 
         //Login
-
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
 
         //Login POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(UserLogin login, string ReturnUrl)
+        {
+            string message = "";
+            using (UserDBEntities db = new UserDBEntities())
+            {
+                var v = db.Users.Where(a => a.EmailID == login.EmailID).FirstOrDefault();
+                if (v!= null)
+                {
+                    if (string.Compare(Crypto.Hash(login.Password), v.Password) == 0)
+                    {
+                        int timeout = login.RememberMe ? 525600 : 20;
+                        var ticket = new FormsAuthenticationTicket(login.EmailID, login.RememberMe, timeout);
+                        string encrypted = FormsAuthentication.Encrypt(ticket);
+                        var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
+                        cookie.Expires = DateTime.Now.AddMinutes(timeout);
+                        cookie.HttpOnly = true;
+                        Response.Cookies.Add(cookie);
 
-
+                        if (Url.IsLocalUrl(ReturnUrl))
+                        {
+                            return Redirect(ReturnUrl)
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                     }
+                    else
+                    {
+                        message = "Invalied credential provided";
+                    }
+                }
+                else
+                {
+                    message = "Invalied credential provided";
+                }
+            }
+            ViewBag.Message = message;
+            return View();
+        }
         //LOgout
 
         [NonAction]

@@ -13,9 +13,6 @@ namespace Login.Models
     }
     public class UserMetaData
     {
-        [Key]
-        public int UserID { get; set; }
-
         [Required(AllowEmptyStrings = false, ErrorMessage ="Firstname required")]
         [Display(Name ="First Name")]
         public string FirstName { get; set; }

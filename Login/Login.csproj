@@ -106,20 +106,27 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\UserModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>UserModel.Context.cs</LastGenOutput>
-      <DependentUpon>UserModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\UserModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>UserModel.edmx</DependentUpon>
-      <LastGenOutput>UserModel.cs</LastGenOutput>
-    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <EntityDeploy Include="Models\User.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>User.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\User.edmx.diagram">
+      <DependentUpon>User.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Models\User.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>User.edmx</DependentUpon>
+      <LastGenOutput>User.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\User.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>User.edmx</DependentUpon>
+      <LastGenOutput>User1.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -141,40 +148,35 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Extended\User.cs" />
+    <Compile Include="Models\User.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>User.Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>UserModel.tt</DependentUpon>
+      <DependentUpon>User.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserModel.Context.cs">
+    <Compile Include="Models\User.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>UserModel.Context.tt</DependentUpon>
+      <DependentUpon>User.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserModel.cs">
+    <Compile Include="Models\User1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>UserModel.tt</DependentUpon>
+      <DependentUpon>User.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UserModel.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <EntityDeploy Include="Models\UserModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>UserModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\UserModel.edmx.diagram">
-      <DependentUpon>UserModel.edmx</DependentUpon>
-    </Content>
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\User\Registration.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\User\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
